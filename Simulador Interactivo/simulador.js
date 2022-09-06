@@ -4,72 +4,90 @@ let continuar = 'Y';
 let montoBruto = 0;
 let cuotas = 0;
 let porcentajeInt = 0;
-let flagInteres = '';
+let flagInteres = 'S';
+console.log(((5000 * 10)/100)+5000);
 
-const calcularMontoConInteres = (montoBruto, cuotas, interes) => {
-	let montoTotal = montoBruto + (montoBruto * interes) / 100;
+const calcularConCuotasIntereses = (montoBruto, cuotas, interes) => {
+	let montoTotal = ((montoBruto * interes) / 100) + montoBruto;
 	let montoCuota = montoTotal / cuotas;
-	for (let i = 1; i <= cuotas; i++) {
-		return alert(
+	return window.alert(
 			'Monto total: ' +
-				montoCuota +
-				'. En la cuota: ' +
-				i +
-				' se debe pagar: ' +
+				montoTotal +
+				'. Numero de cuotas: ' +
+				cuotas +
+				'. Y el monto a pagar en cada una es: ' +
 				montoCuota
-		);
-	}
+	);
+};
+
+const calcularConCuotasSinIntereses = (montoBruto, cuotas) => {
+	let montoTotal = montoBruto;
+	let montoCuota = montoTotal / cuotas;
+	return window.alert(
+			'Monto total: ' +
+				montoTotal +
+				'. Numero de cuotas: ' +
+				cuotas +
+				'. Y el monto a pagar en cada una es: ' +
+				montoCuota
+	);
 };
 
 while (continuar === 'Y') {
-	while (montoBruto < 1 || montoBruto == '') {
+	do {
 		montoBruto = parseInt(
 			prompt('Ingresar el precio de contado del producto a comprar')
 		);
-		console.log(montoBruto);
-		if (montoBruto <= 1 || montoBruto == '') {
-			alert('Ingrese un monto mas alto por favor');
+		
+		if (montoBruto < 1 || Number.isNaN(montoBruto)) {
+			window.alert('Ingrese un monto mas alto por favor');
 		}
-	}
+		console.log(montoBruto);
+	} while (montoBruto < 1 || Number.isNaN(montoBruto) )
 
-	while (cuotas < 1) {
+
+	while (cuotas < 1 || Number.isNaN(cuotas)) {
 		cuotas = parseInt(
 			prompt(
 				'Ingrese las cuotas en las que se va a pagar el producto (Si paga de contado, ingrese 1)'
 			)
 		);
-		console.log(cuotas);
-		if (cuotas < 1) {
-			alert('Ingrese un numero de cuotas mas alto por favor');
+		
+		if (cuotas < 1 || Number.isNaN(cuotas)) {
+			window.alert('Ingrese un numero de cuotas mas alto por favor');
 		}
+		console.log(cuotas);
 	}
+	
 
-	while (flagInteres !== 'Y' || flagInteres !== 'N') {
+	while (flagInteres !== 'Y' && flagInteres !== 'N') {
 		flagInteres = prompt(
 			'El producto tiene interes? Si la rta es positiva ingrese Y, sino ingrese N'
 		);
-		console.log(flagInteres);
-		if (flagInteres != 'Y') {
-			alert('Ingrese una rta valida');
-		} else if (flagInteres != 'N') {
-			alert('Ingrese una rta valida');
-		}
+		flagInteres = flagInteres.toUpperCase();
+		
+		console.log(flagInteres === 'Y');
 	}
 
-	if (flagInteres == 'Y') {
+	if (flagInteres === 'Y') {
 		while (porcentajeInt <= 0) {
-			let porcentajeInt = parseInt(
+			porcentajeInt = parseInt(
 				prompt('Ingrese el porcentaje de interes (sólo el numero, sin el %)')
 			);
 			if (porcentajeInt <= 0) {
 				alert('Ingrese un numero de cuotas mas alto por favor');
 			}
 		}
-		calcularMontoConInteres(montoBruto, cuotas, porcentajeInt);
+		calcularConCuotasIntereses(montoBruto, cuotas, porcentajeInt);
 	} else {
-		alert('El monto a pagar es: ' + montoBruto);
+		calcularConCuotasSinIntereses(montoBruto,cuotas);
 	}
+	
 	continuar = prompt(
-		'Desea continuar? Si la rta es positiva, ingrese Y, sino ingrese N'
+		'Desea continuar? Si la rta es positiva, ingrese Y, sino ingrese cualquier cosa o presione enter'
 	);
+	continuar = continuar.toUpperCase();
+	cuotas = 0;
+	porcentajeInt = 0;
+	flagInteres = 'S';
 }
