@@ -105,6 +105,25 @@ Productos.forEach((p) => {
 
 const cart = [];
 
+if (localStorage.getItem('carrito')) {
+	let carrito = JSON.parse(localStorage.getItem('carrito'));
+	/* reservas.push(...reserva); */
+	for (let i = 0; i < carrito.length; i++) {
+		cart.push(carrito[i]);
+	}
+}
+
+const totalCompra = document.getElementById('totalCompra');
+
+const calcularCompra = () => {
+	let total = 0;
+	let storage = JSON.parse(localStorage.getItem('carrito'));
+	storage.forEach((p) => {
+		total += p.precio * p.cantidad;
+	});
+	totalCompra.innerHTML = total;
+};
+
 const agregarAlCarro = (id) => {
 	const producto = Productos.find((p) => p.id === id);
 	const productoEnCarro = cart.find((p) => p.id === id);
@@ -113,19 +132,19 @@ const agregarAlCarro = (id) => {
 	} else {
 		cart.push(producto);
 	}
+	localStorage.setItem('carrito', JSON.stringify(cart));
 	actualizarCarro();
 };
 
 const contenedorCarro = document.getElementById('contenedorCarro');
 const verCarro = document.getElementById('verCarro');
 
-verCarro.addEventListener('click', actualizarCarro);
+verCarro.addEventListener('click', actualizarCarro());
 
 function actualizarCarro() {
 	localStorage.setItem('carrito', JSON.stringify(cart));
-	let storage = JSON.parse(localStorage.getItem('carrito'));
 	let aux = '';
-	storage.forEach((p) => {
+	cart.forEach((p) => {
 		aux += `
             <div>
               <br>
@@ -152,22 +171,20 @@ function actualizarCarro() {
 
 const eliminarDelCarro = (id) => {
 	const producto = cart.find((p) => p.id === id);
-	cart.splice(cart.indexOf(producto), 1);
+	const indice = cart.indexOf(producto);
+	let total = 0;
+	if (producto.cantidad === 1) {
+		cart.splice(cart.indexOf(producto), 1);
+	} else {
+		cart[indice].cantidad = cart[indice].cantidad - 1;
+	}
 	actualizarCarro();
 };
 
 const vaciarCarro = document.getElementById('vaciarCarro');
 vaciarCarro.addEventListener('click', () => {
 	cart.splice(0, cart.length);
+	localStorage.clear('carrito');
+	totalCompra.innerHTML = 0;
 	actualizarCarro();
 });
-
-const totalCompra = document.getElementById('totalCompra');
-
-const calcularCompra = () => {
-	let total = 0;
-	cart.forEach((p) => {
-		total += p.precio * p.cantidad;
-	});
-	totalCompra.innerHTML = total;
-};
