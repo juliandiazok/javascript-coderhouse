@@ -99,11 +99,26 @@ Productos.forEach((p) => {
 	contenedorProductos.appendChild(divProducto);
 	const boton = document.getElementById(`boton${p.id}`);
 	boton.addEventListener('click', () => {
+		Toastify({
+			text: 'Producto agregado al carrito',
+			duration: 3000,
+			//close: true,
+			gravity: 'bottom',
+			position: 'right',
+			//backgroundColor: "#B7950B",
+			//destination: "https://www.google.com",
+			style: {
+				background: '#f48c06',
+				color: 'black',
+			},
+			//className: "info",
+		}).showToast();
 		agregarAlCarro(p.id);
 	});
 });
 
 const cart = [];
+let productoId = '';
 
 if (localStorage.getItem('carrito')) {
 	let carrito = JSON.parse(localStorage.getItem('carrito'));
@@ -138,6 +153,7 @@ const agregarAlCarro = (id) => {
 
 const contenedorCarro = document.getElementById('contenedorCarro');
 const verCarro = document.getElementById('verCarro');
+let eliminar = '';
 
 verCarro.addEventListener('click', actualizarCarro());
 
@@ -157,7 +173,7 @@ function actualizarCarro() {
                     <p class="card-text">Tipo: ${p.tipo}</p>
                     <p class="card-text">Precio: $${p.precio}</p>
                     <p class="card-text">Cantidad: ${p.cantidad}</p>
-                    <button onClick = "eliminarDelCarro(${p.id})" class="btn" style="background-color: #f48c06"> Eliminar del Carrito </button>
+                    <button onClick = "eliminarDelCarro(${p.id})" class="btn" style="background-color: #f48c06" id="botonEliminar"> Eliminar del Carrito </button>
                   </div>
                 </div>
               <br>
@@ -169,10 +185,43 @@ function actualizarCarro() {
 	calcularCompra();
 }
 
+const asignarId = (id) => {
+	productoId = id;
+};
+
+const vaciarCarro = document.getElementById('vaciarCarro');
+
+vaciarCarro.addEventListener('click', () => {
+	Swal.fire({
+		title: '¿Esta seguro de eliminar el producto?',
+		icon: 'warning',
+		background: '#FDEBD0',
+		confirmButtonText: 'Aceptar',
+		showCancelButton: true,
+		cancelButtonText: 'Cancelar',
+		cancelButtonColor: '#f48c06',
+		confirmButtonColor: '#f48c06',
+	}).then((result) => {
+		if (result.isConfirmed) {
+			//elimino el producto fideos del carrito
+			cart.splice(0, cart.length);
+			localStorage.clear('carrito');
+			totalCompra.innerHTML = 0;
+			actualizarCarro();
+			Swal.fire({
+				title: 'Producto eliminado',
+				icon: 'success',
+				background: '#FDEBD0',
+				confirmButtonText: 'Aceptar',
+				confirmButtonColor: '#f48c06',
+			});
+		}
+	});
+});
+
 const eliminarDelCarro = (id) => {
 	const producto = cart.find((p) => p.id === id);
 	const indice = cart.indexOf(producto);
-	let total = 0;
 	if (producto.cantidad === 1) {
 		cart.splice(cart.indexOf(producto), 1);
 	} else {
@@ -180,11 +229,3 @@ const eliminarDelCarro = (id) => {
 	}
 	actualizarCarro();
 };
-
-const vaciarCarro = document.getElementById('vaciarCarro');
-vaciarCarro.addEventListener('click', () => {
-	cart.splice(0, cart.length);
-	localStorage.clear('carrito');
-	totalCompra.innerHTML = 0;
-	actualizarCarro();
-});
