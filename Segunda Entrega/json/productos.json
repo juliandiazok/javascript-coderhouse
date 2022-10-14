@@ -1,0 +1,56 @@
+[
+	{
+		"id": 1,
+		"nombre": "Perros Cachorros",
+		"marca": "Pro-Plan",
+		"pesoLitros": 5,
+		"tipo": "Alimento Balanceado",
+		"precio": 3000,
+		"cantidad": 1
+	},
+	{
+		"id": 2,
+		"nombre": "Perros Adultos",
+		"marca": "Pro-Plan",
+		"pesoLitros": 5,
+		"tipo": "Alimento Balanceado",
+		"precio": 2800,
+		"cantidad": 1
+	},
+	{
+		"id": 3,
+		"nombre": "Perros Medianos",
+		"marca": "Royal Canin",
+		"pesoLitros": 8,
+		"tipo": "Alimento Balanceado",
+		"precio": 3500,
+		"cantidad": 1
+	},
+	{
+		"id": 4,
+		"nombre": "Perros Pequeños",
+		"marca": "Royal Canin",
+		"pesoLitros": 8,
+		"tipo": "Alimento Balanceado",
+		"precio": 3200,
+		"cantidad": 1
+	},
+	{
+		"id": 5,
+		"nombre": "Plato de Agua",
+		"marca": "Generica",
+		"pesoLitros": 1,
+		"tipo": "Accesorios",
+		"precio": 1500,
+		"cantidad": 1
+	},
+	{
+		"id": 6,
+		"nombre": "Pelota de Tenis",
+		"marca": "Generica",
+		"pesoLitros": 1,
+		"tipo": "Juguetes",
+		"precio": 500,
+		"cantidad": 1
+	}
+]

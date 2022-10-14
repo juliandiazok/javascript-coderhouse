@@ -1,121 +1,57 @@
-class Producto {
-	constructor(id, nombre, marca, pesoLitros, tipo, precio, cantidad) {
-		this.id = id;
-		this.nombre = nombre.toUpperCase();
-		this.marca = marca.toUpperCase();
-		this.pesoLitros = pesoLitros;
-		this.tipo = tipo.toUpperCase();
-		this.precio = precio;
-		this.cantidad = cantidad;
-	}
-}
+const contenedorProductos = document.getElementById('contenedorProductos');
 
-const cachorrosProPlan = new Producto(
-	1,
-	'Perros Cachorros',
-	'Pro-Plan',
-	5,
-	'Alimento Balanceado',
-	3000,
-	1
-);
-const adultosProPlan = new Producto(
-	2,
-	'Perros Adultos',
-	'Pro-Plan',
-	5,
-	'Alimento Balanceado',
-	2800,
-	1
-);
-const perrosMedianosRoyalCanin = new Producto(
-	3,
-	'Perros Medianos',
-	'Royal Canin',
-	8,
-	'Alimento Balanceado',
-	3500,
-	1
-);
-const perrosPequenosRoyalCanin = new Producto(
-	4,
-	'Perros Pequeños',
-	'Royal Canin',
-	8,
-	'Alimento Balanceado',
-	3200,
-	1
-);
-const platoMediano = new Producto(
-	5,
-	'Plato de Agua',
-	'Generica',
-	1,
-	'Accesorios',
-	1500,
-	1
-);
-const pelota = new Producto(
-	6,
-	'Pelota de Tenis',
-	'Generica',
-	1,
-	'Juguetes',
-	500,
-	1
-);
+const listadoProductos = '../json/productos.json';
 
 const Productos = [];
 
-Productos.push(
-	cachorrosProPlan,
-	adultosProPlan,
-	perrosMedianosRoyalCanin,
-	perrosPequenosRoyalCanin,
-	platoMediano,
-	pelota
-);
-
-const contenedorProductos = document.getElementById('contenedorProductos');
-
-Productos.forEach((p) => {
-	const divProducto = document.createElement('div');
-	divProducto.classList.add('card', 'col-xxl-3');
-	divProducto.innerHTML = `
-                            <div>
-                              <br>
-                                <img src="../images/store/${p.id}.jpg" class="imageCard card-img-top" width="50%" height="50%">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Nombre: ${p.nombre}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Marca: ${p.marca}</h6>
-                                    <p class="card-text">Peso/Litros: ${p.pesoLitros}</p>
-                                    <p class="card-text">Tipo: ${p.tipo}</p>
-                                    <p class="card-text">Precio: $${p.precio}</p>
-                                    <button id="boton${p.id}" class="btn" style="background-color: #f48c06"> Agregar al Carrito </button>
-                                  </div>
-                              <br>
-                            </div>
-                          `;
-	contenedorProductos.appendChild(divProducto);
-	const boton = document.getElementById(`boton${p.id}`);
-	boton.addEventListener('click', () => {
-		Toastify({
-			text: 'Producto agregado al carrito',
-			duration: 3000,
-			//close: true,
-			gravity: 'bottom',
-			position: 'right',
-			//backgroundColor: "#B7950B",
-			//destination: "https://www.google.com",
-			style: {
-				background: '#f48c06',
-				color: 'black',
-			},
-			//className: "info",
-		}).showToast();
-		agregarAlCarro(p.id);
-	});
-});
+fetch(listadoProductos)
+	.then((respuesta) => respuesta.json())
+	.then((datos) => {
+		datos.forEach((producto) => {
+			Productos.push(producto);
+		});
+	})
+	.catch((error) => console.log(error))
+	.finally(() =>
+		Productos.forEach((p) => {
+			const divProducto = document.createElement('div');
+			divProducto.classList.add('card', 'col-xxl-3');
+			divProducto.innerHTML = `
+														<div>
+															<br>
+																<img src="../images/store/${p.id}.jpg" class="imageCard card-img-top" width="50%" height="50%">
+																	<div class="card-body">
+																		<h5 class="card-title">Nombre: ${p.nombre}</h5>
+																		<h6 class="card-subtitle mb-2 text-muted">Marca: ${p.marca}</h6>
+																		<p class="card-text">Peso/Litros: ${p.pesoLitros}</p>
+																		<p class="card-text">Tipo: ${p.tipo}</p>
+																		<p class="card-text">Precio: $${p.precio}</p>
+																		<button id="boton${p.id}" class="btn" style="background-color: #f48c06"> Agregar al Carrito </button>
+																	</div>
+															<br>
+														</div>
+													`;
+			contenedorProductos.appendChild(divProducto);
+			const boton = document.getElementById(`boton${p.id}`);
+			boton.addEventListener('click', () => {
+				Toastify({
+					text: 'Producto agregado al carrito',
+					duration: 3000,
+					//close: true,
+					gravity: 'bottom',
+					position: 'right',
+					//backgroundColor: "#B7950B",
+					//destination: "https://www.google.com",
+					style: {
+						background: '#f48c06',
+						color: 'black',
+					},
+					//className: "info",
+				}).showToast();
+				agregarAlCarro(p.id);
+			});
+		})
+	);
 
 const cart = [];
 let productoId = '';
