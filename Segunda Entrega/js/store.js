@@ -58,13 +58,18 @@ let productoId = '';
 
 if (localStorage.getItem('carrito')) {
 	let carrito = JSON.parse(localStorage.getItem('carrito'));
-	/* reservas.push(...reserva); */
 	for (let i = 0; i < carrito.length; i++) {
 		cart.push(carrito[i]);
 	}
 }
 
 const totalCompra = document.getElementById('totalCompra');
+const finalizarCompra = document.getElementById('finalizarCompra');
+const botonFinalizar = document.createElement('button');
+botonFinalizar.innerText = 'Finalizar Compra';
+botonFinalizar.className = 'btn';
+botonFinalizar.style = 'background-color: #f48c06;';
+finalizarCompra.appendChild(botonFinalizar);
 
 const calcularCompra = () => {
 	let total = 0;
@@ -73,7 +78,30 @@ const calcularCompra = () => {
 		total += p.precio * p.cantidad;
 	});
 	totalCompra.innerHTML = total;
+	if (total > 0) {
+		botonFinalizar.hidden = false;
+	} else {
+		botonFinalizar.hidden = true;
+	}
 };
+
+botonFinalizar.addEventListener('click', () => {
+	Swal.fire({
+		title: '¿Quiere finalizar la compra?',
+		icon: 'warning',
+		background: '#FDEBD0',
+		confirmButtonText: 'Aceptar',
+		showCancelButton: true,
+		cancelButtonText: 'Cancelar',
+		cancelButtonColor: '#B7950B',
+		confirmButtonColor: '#B7950B',
+	}).then((result) => {
+		if (result.isConfirmed) {
+			let storage = JSON.parse(localStorage.getItem('carrito'));
+			console.log(storage);
+		}
+	});
+});
 
 const agregarAlCarro = (id) => {
 	const producto = Productos.find((p) => p.id === id);
@@ -139,7 +167,6 @@ vaciarCarro.addEventListener('click', () => {
 		confirmButtonColor: '#f48c06',
 	}).then((result) => {
 		if (result.isConfirmed) {
-			//elimino el producto fideos del carrito
 			cart.splice(0, cart.length);
 			localStorage.clear('carrito');
 			totalCompra.innerHTML = 0;
@@ -165,3 +192,28 @@ const eliminarDelCarro = (id) => {
 	}
 	actualizarCarro();
 };
+
+const apiFotos = 'https://dog.ceo/api/breeds/image/random';
+const contenedorFotos = document.getElementById('random-img');
+
+fetch(apiFotos)
+	.then((respuesta) => respuesta.json())
+	.then((datos) => {
+		mostrarFotos(datos);
+	})
+	.catch((error) => console.log(error));
+
+function mostrarFotos(datos) {
+	const img = document.createElement('img');
+	img.src = datos.message;
+	img.setAttribute('height', '100px');
+	img.setAttribute('width', '100px');
+	contenedorFotos.appendChild(img);
+}
+
+let totalHabCarr = 0;
+let storageHabCarr = JSON.parse(localStorage.getItem('carrito'));
+storageHabCarr.forEach((p) => {
+	totalHabCarr += p.precio * p.cantidad;
+});
+console.log(totalHabCarr);

@@ -42,10 +42,14 @@ html, body {
   align-items: center;
   display: grid;
   grid-auto-columns: 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas: "logo-fot social-media";
+  gap: 0px 0px 0px;
+  grid-template-areas: "logo-fot imagen-al-azar social-media";
+}
+
+.imagen-al-azar {
+  grid-area: imagen-al-azar;
 }
 
 .titulo {
@@ -345,6 +349,10 @@ input[type=submit], input[type=reset] {
     background-repeat: no-repeat;
   }
 
+  .imagen-al-azar {
+    visibility: hidden;
+  }
+
   .titulo {
     padding-top: 60%;
     margin-right: 0;
@@ -376,6 +384,11 @@ input[type=submit], input[type=reset] {
     gap: 0px 0px;
     grid-template-areas: "logo-fot" "social-media";
     height: 208px;
+  }
+
+  .random-img {
+    margin-top: 8px;
+    margin-bottom: -15 px;
   }
 
   .logo-fot {
