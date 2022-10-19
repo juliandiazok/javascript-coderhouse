@@ -54,17 +54,30 @@
       </div>
     </div>
   <div class="body-page">
-      <center><h2>Estás por comprar: </h2></center>
-      <div id="listaCarrito"></div>
+      <center><h2 id="estasPorComprar">Estás por comprar: </h2></center>
+      <div class="container">
+        <ul class="list-group">
+          <div id="listaCarrito"></div>
+        </ul>
+      </div>
 
-      <center><h2>Tu Carrito: </h2>
-      <button class="btn btn-primary" id="verCarro" hidden>Ver Carrito</button>
-      <button class="btn " id="vaciarCarro" style="background-color: #f48c06;">Vaciar Carrito</button>
-
-      <h3>Total a pagar: $<span id="totalCompra">0</span></h3></center>
-      <div class="row py-3" id="contenedorCarro"></div>
-      <div id="finalizarCompra" style="text-align: center;"></div>
-      <br>
+      <center><h3 id="total">Total a pagar: $<span id="totalCompra">0</span></h3>
+      <center><img class="medios-pago" src="../images/medios-pago.png" alt="Medios de Pago">
+        <div class="description">
+          <form>
+              <div class="form-group">
+                <input type="number" placeholder="Numero Tarjeta" id="numeroTarjeta" name="numeroTarjeta" min="111111111111">
+                <input type="number" placeholder="CVV" id="CVV" name="CVV" style="width: 80px;" min="99" max="9999">
+                <input type="number" placeholder="DNI" id="DNI" name="DNI" style="width: 120px;" min="5000" max="500000000">
+              </div>
+              <div class="form-group">
+                <input type="text" placeholder="Nombre en Tarjeta" id="nombreTarjeta" name="nombreTarjeta">
+                <input type="month" placeholder="Vencimiento" id="fechaVencimiento" name="Vencimiento" value="2030-12" style="width: 180px;">
+              </div>
+          </form>
+          <button class="btn " id="pagarAhora" style="background-color: #f48c06;">Pagar Ahora</button>
+          <button class="btn " id="seguirComprando" style="background-color: #f48c06;">Seguir Comprando</button></center>
+      </div></center>
   </div>
   <div class="footer">
     <div class="logo-fot">
