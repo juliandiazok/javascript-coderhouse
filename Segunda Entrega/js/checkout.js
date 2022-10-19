@@ -22,4 +22,32 @@ storage.forEach((p) => {
 
 totalCompra.innerHTML = total;
 
+const pagarAhora = document.getElementById('pagarAhora');
+
+pagarAhora.addEventListener('click', () => {
+	Swal.fire({
+		title: '¿Quiere realizar el pago?',
+		icon: 'warning',
+		background: '#FDEBD0',
+		confirmButtonText: 'Aceptar',
+		showCancelButton: true,
+		cancelButtonText: 'Cancelar',
+		cancelButtonColor: '#B7950B',
+		confirmButtonColor: '#B7950B',
+	}).then((result) => {
+		if (result.isConfirmed) {
+			Swal.fire({
+				title: 'Pago Realizado',
+				icon: 'success',
+				background: '#FDEBD0',
+				confirmButtonText: 'Regresar a la tienda',
+				confirmButtonColor: '#f48c06',
+			});
+			/*let storage = JSON.parse(localStorage.getItem('carrito'));
+			console.log(storage);
+			window.location = '../pages/checkout.html';*/
+		}
+	});
+});
+
 console.log(total);
