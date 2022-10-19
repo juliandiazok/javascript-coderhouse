@@ -99,6 +99,7 @@ botonFinalizar.addEventListener('click', () => {
 		if (result.isConfirmed) {
 			let storage = JSON.parse(localStorage.getItem('carrito'));
 			console.log(storage);
+			window.location = '../pages/checkout.html';
 		}
 	});
 });
@@ -210,10 +211,3 @@ function mostrarFotos(datos) {
 	img.setAttribute('width', '100px');
 	contenedorFotos.appendChild(img);
 }
-
-let totalHabCarr = 0;
-let storageHabCarr = JSON.parse(localStorage.getItem('carrito'));
-storageHabCarr.forEach((p) => {
-	totalHabCarr += p.precio * p.cantidad;
-});
-console.log(totalHabCarr);
