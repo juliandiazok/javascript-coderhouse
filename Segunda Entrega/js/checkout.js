@@ -22,32 +22,20 @@ storage.forEach((p) => {
 
 totalCompra.innerHTML = total;
 
-const pagarAhora = document.getElementById('pagarAhora');
+const apiFotos = 'https://dog.ceo/api/breeds/image/random';
+const contenedorFotos = document.getElementById('random-img');
 
-pagarAhora.addEventListener('click', () => {
-	Swal.fire({
-		title: '¿Quiere realizar el pago?',
-		icon: 'warning',
-		background: '#FDEBD0',
-		confirmButtonText: 'Aceptar',
-		showCancelButton: true,
-		cancelButtonText: 'Cancelar',
-		cancelButtonColor: '#B7950B',
-		confirmButtonColor: '#B7950B',
-	}).then((result) => {
-		if (result.isConfirmed) {
-			Swal.fire({
-				title: 'Pago Realizado',
-				icon: 'success',
-				background: '#FDEBD0',
-				confirmButtonText: 'Regresar a la tienda',
-				confirmButtonColor: '#f48c06',
-			});
-			/*let storage = JSON.parse(localStorage.getItem('carrito'));
-			console.log(storage);
-			window.location = '../pages/checkout.html';*/
-		}
-	});
-});
+fetch(apiFotos)
+	.then((respuesta) => respuesta.json())
+	.then((datos) => {
+		mostrarFotos(datos);
+	})
+	.catch((error) => console.log(error));
 
-console.log(total);
+function mostrarFotos(datos) {
+	const img = document.createElement('img');
+	img.src = datos.message;
+	img.setAttribute('height', '100px');
+	img.setAttribute('width', '100px');
+	contenedorFotos.appendChild(img);
+}

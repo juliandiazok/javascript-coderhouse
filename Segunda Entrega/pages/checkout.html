@@ -31,8 +31,8 @@
               <li class="nav-item">
                 <a class="nav-link" href="../index.html">Inicio</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Tienda<span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="./store.html">Tienda</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="./services.html">Servicios</a>
@@ -64,19 +64,18 @@
       <center><h3 id="total">Total a pagar: $<span id="totalCompra">0</span></h3>
       <center><img class="medios-pago" src="../images/medios-pago.png" alt="Medios de Pago">
         <div class="description">
-          <form>
+          <form action="../pages/finish.html">
               <div class="form-group">
-                <input type="number" placeholder="Numero Tarjeta" id="numeroTarjeta" name="numeroTarjeta" min="111111111111">
-                <input type="number" placeholder="CVV" id="CVV" name="CVV" style="width: 80px;" min="99" max="9999">
-                <input type="number" placeholder="DNI" id="DNI" name="DNI" style="width: 120px;" min="5000" max="500000000">
+                <input type="number" placeholder="Numero Tarjeta" id="numeroTarjeta" name="numeroTarjeta" min="111111111111" required>
+                <input type="number" placeholder="CVV" id="CVV" name="CVV" style="width: 80px;" min="99" max="9999" required>
+                <input type="number" placeholder="DNI" id="DNI" name="DNI" style="width: 120px;" min="5000" max="500000000" required>
               </div>
               <div class="form-group">
-                <input type="text" placeholder="Nombre en Tarjeta" id="nombreTarjeta" name="nombreTarjeta">
-                <input type="month" placeholder="Vencimiento" id="fechaVencimiento" name="Vencimiento" value="2030-12" style="width: 180px;">
+                <input type="text" placeholder="Nombre en Tarjeta" id="nombreTarjeta" name="nombreTarjeta" required>
+                <input type="month" placeholder="Vencimiento" id="fechaVencimiento" name="Vencimiento" value="2030-12" style="width: 180px;" required>
               </div>
+              <input type="submit" value="Pagar Ahora" class="btn " id="pagarAhora" style="background-color: #f48c06;" >
           </form>
-          <button class="btn " id="pagarAhora" style="background-color: #f48c06;">Pagar Ahora</button>
-          <button class="btn " id="seguirComprando" style="background-color: #f48c06;">Seguir Comprando</button></center>
       </div></center>
   </div>
   <div class="footer">
