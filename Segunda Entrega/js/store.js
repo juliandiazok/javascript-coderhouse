@@ -37,16 +37,12 @@ fetch(listadoProductos)
 				Toastify({
 					text: 'Producto agregado al carrito',
 					duration: 3000,
-					//close: true,
 					gravity: 'bottom',
 					position: 'right',
-					//backgroundColor: "#B7950B",
-					//destination: "https://www.google.com",
 					style: {
 						background: '#f48c06',
 						color: 'black',
 					},
-					//className: "info",
 				}).showToast();
 				agregarAlCarro(p.id);
 			});
